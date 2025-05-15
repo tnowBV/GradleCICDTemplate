@@ -1,7 +1,7 @@
 name: GradleCICDTemplate
 on:
   pull_request:
-    branches: ["PB-2-Setup-CI-CD-template-for-Github-Actions", "main"]
+    branches: ["main"]
 jobs:
   checkstyle:
     name: runner / checkstyle
@@ -19,7 +19,7 @@ jobs:
           CHECKSTYLE_VERSION=$(grep "^checkstyle.version=" gradle.properties | cut -d'=' -f2)
           echo "checkstyle_version=$CHECKSTYLE_VERSION" >> $GITHUB_OUTPUT
 
-      - name: Checkout checkstyle
+      - name: Run Checkstyle
         uses: dbelyaev/action-checkstyle@master
         with:
           github_token: ${{ secrets.github_token }}

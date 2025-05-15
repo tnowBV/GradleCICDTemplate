@@ -6,10 +6,9 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 /**
  * The entry point of the Spring Boot application.
  *
- * <p>This class bootstraps the application using {@link SpringApplication}.
- * It also contains a simple test output statement for demonstration.</p>
+ * <p>This class bootstraps the application using {@link SpringApplication}</p>
  *
- * @author YourName
+ * @author Terrell
  */
 @SpringBootApplication
 public class GradleApplication {
@@ -20,10 +19,6 @@ public class GradleApplication {
      * @param args Command-line arguments passed during application startup.
      */
     public static void main(final String[] args) {
-        //Test failed checkstyle:
-        String hi = "Hello World!";
-        System.out.println(hi);
-
         SpringApplication.run(GradleApplication.class, args);
     }
 
