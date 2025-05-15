@@ -21,8 +21,8 @@ public class GradleApplication {
      */
     public static void main(final String[] args) {
         //Test failed checkstyle:
-        String HelloWorld = "Hello World!";
-        System.out.println(HelloWorld);
+        String hi = "Hello World!";
+        System.out.println(hi);
 
         SpringApplication.run(GradleApplication.class, args);
     }

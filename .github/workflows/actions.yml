@@ -24,6 +24,7 @@ jobs:
         with:
           github_token: ${{ secrets.github_token }}
           reporter: github-pr-review
+          checkstyle_config: './config/checkstyle/checkstyle.xml'
           level: error
           checkstyle_version: ${{ steps.load_version.outputs.checkstyle_version }}
-          fail_level: 'error'
+          fail_level: error

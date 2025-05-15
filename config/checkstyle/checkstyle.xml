@@ -20,7 +20,7 @@
 
     <property name="charset" value="UTF-8"/>
 
-    <property name="severity" value="${org.checkstyle.google.severity}" default="warning"/>
+    <property name="severity" value="${org.checkstyle.google.severity}" default="error"/>
 
     <property name="fileExtensions" value="java, properties, xml"/>
     <!-- Excludes all 'module-info.java' files              -->
@@ -225,8 +225,6 @@
             <message key="name.invalidPattern"
                      value="Package name ''{0}'' must match pattern ''{1}''."/>
         </module>
-        <module name="FinalParameters"/>
-
         <module name="TypeName">
             <property name="tokens" value="CLASS_DEF, INTERFACE_DEF, ENUM_DEF,
                     ANNOTATION_DEF, RECORD_DEF"/>
