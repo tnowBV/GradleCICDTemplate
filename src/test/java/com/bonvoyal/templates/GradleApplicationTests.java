@@ -8,9 +8,6 @@ class GradleApplicationTests {
 
     @Test
     void contextLoads() {
-        //Test failed checkstyle:
-        String HelloWorld = "Hello World!";
-        System.out.println(HelloWorld);
     }
 
 }
