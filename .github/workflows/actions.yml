@@ -1,7 +1,5 @@
 name: GradleCICDTemplate
 on:
-  push:
-    branches: ["PB-2-Setup-CI-CD-template-for-Github-Actions", "main"]
   pull_request:
     branches: ["PB-2-Setup-CI-CD-template-for-Github-Actions", "main"]
 jobs:
