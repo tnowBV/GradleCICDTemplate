@@ -1,0 +1,30 @@
+name: GradleCICDTemplate
+on:
+  pull_request:
+    branches: ["main"]
+jobs:
+  checkstyle:
+    name: Checkstyle
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      pull-requests: write
+    steps:
+      - name: Checkout package
+        uses: actions/checkout@v4
+
+      - name: Read Checkstyle version from gradle.properties
+        id: load_version
+        run: |
+          CHECKSTYLE_VERSION=$(grep "^checkstyle.version=" gradle.properties | cut -d'=' -f2)
+          echo "checkstyle_version=$CHECKSTYLE_VERSION" >> $GITHUB_OUTPUT
+
+      - name: Run Checkstyle
+        uses: dbelyaev/action-checkstyle@master
+        with:
+          github_token: ${{ secrets.github_token }}
+          reporter: github-pr-review
+          checkstyle_config: './config/checkstyle/checkstyle.xml'
+          level: error
+          checkstyle_version: ${{ steps.load_version.outputs.checkstyle_version }}
+          fail_level: error
