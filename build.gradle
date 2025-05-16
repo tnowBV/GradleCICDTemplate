@@ -19,7 +19,7 @@ test {
     testLogging {
         events "passed", "failed", "skipped"
     }
-    finalizedBy jacocoTestReport
+    finalizedBy jacocoTestReport, jacocoTestCoverageVerification
 }
 
 jacoco {
@@ -36,6 +36,7 @@ jacocoTestReport {
 }
 
 jacocoTestCoverageVerification {
+    dependsOn test
     violationRules {
         rule {
             limit {
