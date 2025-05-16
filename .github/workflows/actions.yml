@@ -4,8 +4,8 @@ on:
     branches: ["main"]
 
 jobs:
-  checkstyle:
-    name: Checkstyle
+  pr_checks:
+    name: Quality Checks
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -14,6 +14,15 @@ jobs:
     steps:
       - name: Checkout package
         uses: actions/checkout@v4
+
+      - name: Set up JDK
+        uses: actions/setup-java@v4
+        with:
+          distribution: 'temurin'
+          java-version: '21'
+
+      - name: Grant execute permissions to Gradle wrapper
+        run: chmod +x gradlew
 
       - name: Read Checkstyle version from gradle.properties
         id: load_version
@@ -31,27 +40,8 @@ jobs:
           checkstyle_version: ${{ steps.load_version.outputs.checkstyle_version }}
           fail_level: error
 
-  code_coverage:
-    name: Unit Tests and Code Coverage
-    runs-on: ubuntu-latest
-    permissions:
-      pull-requests: write
-
-    steps:
-      - name: Checkout package
-        uses: actions/checkout@v4
-
-      - name: Set up JDK
-        uses: actions/setup-java@v4
-        with:
-          distribution: 'temurin'
-          java-version: '21'
-
-      - name: Grant execute permissions to Gradle wrapper
-        run: chmod +x gradlew
-
       - name: Run Code Coverage Verification
-        run: ./gradlew check
+        run: ./gradlew jacocoTestCoverageVerification
 
       - name: Generate JaCoCo Badge
         uses: cicirello/jacoco-badge-generator@v2

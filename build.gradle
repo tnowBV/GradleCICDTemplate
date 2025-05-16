@@ -44,8 +44,6 @@ jacocoTestCoverageVerification {
         }
     }
 }
-check.dependsOn jacocoTestCoverageVerification
-
 
 
 group = 'com.bonvoyal'
