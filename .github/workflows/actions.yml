@@ -35,10 +35,10 @@ jobs:
       pull-requests: write
     steps:
       - uses: actions/checkout@v2
-      - name: Set up JDK 17
+      - name: Set up JDK
         uses: actions/setup-java@v1
         with:
-          java-version: 17-ea
+          java-version: 21-ea
       - name: Run Coverage Check
         run: |
           chmod +x gradlew
