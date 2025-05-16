@@ -44,6 +44,8 @@ jacocoTestCoverageVerification {
         }
     }
 }
+check.dependsOn jacocoTestCoverageVerification
+
 
 
 group = 'com.bonvoyal'
@@ -83,4 +85,3 @@ dependencies {
 tasks.named('test') {
     useJUnitPlatform()
 }
-check.dependsOn jacocoTestCoverageVerification
