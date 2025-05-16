@@ -32,7 +32,7 @@ jobs:
           fail_level: error
 
   code_coverage:
-    name: Code Coverage
+    name: Unit Tests and Code Coverage
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write

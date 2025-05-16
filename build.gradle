@@ -35,6 +35,22 @@ jacocoTestReport {
     }
 }
 
+jacocoTestCoverageVerification {
+    dependsOn test
+
+    violationRules {
+        rule {
+            limit {
+                counter = 'INSTRUCTION' // You can use LINE, BRANCH, etc.
+                value = 'COVEREDRATIO'
+                minimum = 0.80
+            }
+        }
+    }
+}
+
+check.dependsOn jacocoTestCoverageVerification
+
 group = 'com.bonvoyal'
 version = '0.0.1-SNAPSHOT'
 
