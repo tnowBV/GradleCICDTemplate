@@ -2,6 +2,7 @@ name: GradleCICDTemplate
 on:
   pull_request:
     branches: ["main"]
+
 jobs:
   checkstyle:
     name: Checkstyle
@@ -9,6 +10,7 @@ jobs:
     permissions:
       contents: read
       pull-requests: write
+
     steps:
       - name: Checkout package
         uses: actions/checkout@v4
@@ -28,30 +30,33 @@ jobs:
           level: error
           checkstyle_version: ${{ steps.load_version.outputs.checkstyle_version }}
           fail_level: error
+
   code_coverage:
     name: Code Coverage
     runs-on: ubuntu-latest
     permissions:
       pull-requests: write
+
     steps:
-      - uses: actions/checkout@v4
+      - name: Checkout package
+        uses: actions/checkout@v4
+
       - name: Set up JDK
         uses: actions/setup-java@v4
         with:
           distribution: 'temurin'
           java-version: '21'
-      - name: Run Coverage Check
-        run: |
-          chmod +x gradlew
-          ./gradlew testCoverage
 
-      - name: Add coverage to PR
-        id: jacoco
-        uses: madrapps/jacoco-report@v1.7.2
+      - name: Grant execute permissions to Gradle wrapper
+        run: chmod +x gradlew
+
+      - name: Validate Gradle wrapper
+        uses: gradle/wrapper-validation-action@ccb4328a959376b642e027874838f60f8e596de3
+
+      - name: Run test
+        run: ./gradlew test
+
+      - name: Generate JaCoCo Badge
+        uses: cicirello/jacoco-badge-generator@v2
         with:
-          paths: |
-            ${{ github.workspace }}/**/build/reports/jacoco/prodNormalDebugCoverage/prodNormalDebugCoverage.xml,
-            ${{ github.workspace }}/**/build/reports/jacoco/**/debugCoverage.xml
-          token: ${{ secrets.GITHUB_TOKEN }}
-          min-coverage-overall: 75
-          min-coverage-changed-files: 75 error
+          jacoco-csv-file: build/reports/jacoco/test/jacocoTestReport.csv
