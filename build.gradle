@@ -39,7 +39,7 @@ jacocoTestCoverageVerification {
     violationRules {
         rule {
             limit {
-                minimum  = project.findProperty("jacoco.coverage.minimum")
+                minimum = 0.80
             }
         }
     }
