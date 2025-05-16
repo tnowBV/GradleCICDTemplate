@@ -28,3 +28,29 @@ jobs:
           level: error
           checkstyle_version: ${{ steps.load_version.outputs.checkstyle_version }}
           fail_level: error
+  code_coverage:
+    name: Code Coverage
+    runs-on: ubuntu-latest
+    permissions:
+      pull-requests: write
+    steps:
+      - uses: actions/checkout@v2
+      - name: Set up JDK 1.8
+        uses: actions/setup-java@v1
+        with:
+          java-version: 1.8
+      - name: Run Coverage Check
+        run: |
+          chmod +x gradlew
+          ./gradlew testCoverage
+
+      - name: Add coverage to PR
+        id: jacoco
+        uses: madrapps/jacoco-report@v1.7.2
+        with:
+          paths: |
+            ${{ github.workspace }}/**/build/reports/jacoco/prodNormalDebugCoverage/prodNormalDebugCoverage.xml,
+            ${{ github.workspace }}/**/build/reports/jacoco/**/debugCoverage.xml
+          token: ${{ secrets.GITHUB_TOKEN }}
+          min-coverage-overall: 75
+          min-coverage-changed-files: 75 error
